@@ -2,8 +2,18 @@
 
 Simple docker image for trac with MySQL and PostgreSQL support.
 
-## Build
+## Usage
 
 ```sh
-docker build --tag=ghudiczius/trac:1.4.3 .
+docker run --rm registry.gitlab.jmk.hu/web/trac:<VERSION> \
+  -p 8000:8000 \
+  -v path/to/data:/data
+```
+
+or
+
+```sh
+docker run --rm ghudiczius/trac:<VERSION> \
+  -p 8000:8000 \
+  -v path/to/data:/data
 ```
