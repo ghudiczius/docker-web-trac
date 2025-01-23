@@ -26,8 +26,8 @@ kaniko-check:
   - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
   script:
   - /kaniko/executor --context="${CI_PROJECT_DIR}" --dockerfile="${CI_PROJECT_DIR}/Dockerfile" --no-push
-  - echo "Not published new image ${CI_REGISTRY_IMAGE}:${TRAC_VERSION}-${PYTHON_VERSION}-${CI_PIPELINE_IID}"
-  - echo "Not published new image ${DOCKER_HUB_IMAGE}:${TRAC_VERSION}-${PYTHON_VERSION}-${CI_PIPELINE_IID}"
+  - echo "Would publish new image ${CI_REGISTRY_IMAGE}:${TRAC_VERSION}.${CI_PIPELINE_IID}_python${PYTHON_VERSION}"
+  - echo "Would publish new image ${DOCKER_HUB_IMAGE}:${TRAC_VERSION}.${CI_PIPELINE_IID}_python${PYTHON_VERSION}"
   stage: test
   tags:
   - kubernetes
@@ -53,9 +53,29 @@ kaniko:
         }
       }
     }" > /kaniko/.docker/config.json
-  - /kaniko/executor --context="${CI_PROJECT_DIR}" --destination="${CI_REGISTRY_IMAGE}:${TRAC_VERSION}-${PYTHON_VERSION}-${CI_PIPELINE_IID}" --destination="${DOCKER_HUB_IMAGE}:${TRAC_VERSION}-${PYTHON_VERSION}-${CI_PIPELINE_IID}" --dockerfile="${CI_PROJECT_DIR}/Dockerfile"
-  - echo "Successfully published new image ${CI_REGISTRY_IMAGE}:${TRAC_VERSION}-${PYTHON_VERSION}-${CI_PIPELINE_IID}"
-  - echo "Successfully published new image ${DOCKER_HUB_IMAGE}:${TRAC_VERSION}-${PYTHON_VERSION}-${CI_PIPELINE_IID}"
+  - /kaniko/executor --context="${CI_PROJECT_DIR}" --destination="${CI_REGISTRY_IMAGE}:${TRAC_VERSION}.${CI_PIPELINE_IID}_python${PYTHON_VERSION}" --destination="${DOCKER_HUB_IMAGE}:${TRAC_VERSION}.${CI_PIPELINE_IID}_python${PYTHON_VERSION}" --dockerfile="${CI_PROJECT_DIR}/Dockerfile"
+  - echo "Successfully published new image ${CI_REGISTRY_IMAGE}:${TRAC_VERSION}.${CI_PIPELINE_IID}_python${PYTHON_VERSION}"
+  - echo "Successfully published new image ${DOCKER_HUB_IMAGE}:${TRAC_VERSION}.${CI_PIPELINE_IID}_python${PYTHON_VERSION}"
   stage: build
+  tags:
+  - kubernetes
+
+docker-hub:
+  image: alpine/curl:8.11.1
+  rules:
+  - changes:
+    - README.md
+  - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+  - apk add jq
+  - |
+    DOCKER_HUB_TOKEN="$(curl --request POST --header "content-type: application/json" "${DOCKER_HUB_API_URL}users/login" --data-raw "{\"username\": \"${DOCKER_HUB_USERNAME}\", \"password\": \"${DOCKER_HUB_PASSWORD}\"}" | jq -r .token)"
+    README_CONTENT="$(cat README.md)"
+    echo "${README_CONTENT}"
+    README_CONTENT="${README_CONTENT//$'\\'/\\\\}"
+    README_CONTENT="${README_CONTENT//$'\n'/\\n}"
+    echo "${README_CONTENT}"
+    curl --request PATCH --header "Authorization: Bearer ${DOCKER_HUB_TOKEN}" --header "content-type: application/json" "${DOCKER_HUB_API_URL}repositories/${DOCKER_HUB_USERNAME}/${CI_PROJECT_NAME}/" --data-raw "{\"full_description\": \"${README_CONTENT}\"}"
+  stage: docs
   tags:
   - kubernetes

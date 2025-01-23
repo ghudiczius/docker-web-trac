@@ -1,6 +1,6 @@
 # trac
 
-Simple docker image for trac with MySQL and PostgreSQL support.
+Simple docker image for trac with MySQL and PostgreSQL support and TracAccountManager installed, built on the official python2.7 image.
 
 ## Usage
 
