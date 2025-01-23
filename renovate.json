@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "commitMessagePrefix": "renovate:",
+  "customManagers": [{
+    "customType": "regex",
+    "datasourceTemplate": "docker",
+    "depNameTemplate": "perl",
+    "fileMatch": [
+      "^.gitlab-ci\\.ya?ml$"
+    ],
+    "matchStrings": [
+      "PERL_VERSION: \"(?<currentValue>.*)\""
+    ],
+    "versioningTemplate": "semver"
+  }],
+  "packageRules": [{
+    "allowedVersions": "<3",
+    "matchPackageNames": [
+      "python"
+    ]
+  }, {
+    "allowedVersions": "/2\\.\\d+\\.\\d+-buster/",
+    "matchPackageNames": [
+      "python"
+    ]
+  }, {
+    "autoApprove": true,
+    "matchUpdateTypes": [
+      "major"
+    ]
+  }, {
+    "automerge": true,
+    "matchUpdateTypes": [
+      "minor"
+    ]
+  }, {
+    "automerge": true,
+    "automergeType": "branch",
+    "matchUpdateTypes": [
+      "patch"
+    ]
+  }, {
+    "ignoreUnstable": false,
+    "matchPackageNames": [
+      "eldy/awstats"
+    ],
+    "separateMajorMinor": true,
+    "separateMinorPatch": true,
+    "separateMultipleMajor": true,
+    "separateMultipleMinor": true
+  }]
+}
