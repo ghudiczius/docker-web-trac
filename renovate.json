@@ -9,7 +9,7 @@
       "^.gitlab-ci\\.ya?ml$"
     ],
     "matchStrings": [
-      "PERL_VERSION: \"(?<currentValue>.*)\""
+      "PYTHON_VERSION: \"(?<currentValue>.*)\""
     ],
     "versioningTemplate": "docker"
   }],
