@@ -14,7 +14,7 @@
     "versioningTemplate": "docker"
   }],
   "packageRules": [{
-    "allowedVersions": "/2\\.\\d+\\.\\d+-bullseye/",
+    "allowedVersions": "/\\d+\\.\\d+\\.\\d+-bullseye/",
     "matchPackageNames": [
       "python"
     ]
