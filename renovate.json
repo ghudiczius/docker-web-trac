@@ -11,15 +11,10 @@
     "matchStrings": [
       "PERL_VERSION: \"(?<currentValue>.*)\""
     ],
-    "versioningTemplate": "semver"
+    "versioningTemplate": "docker"
   }],
   "packageRules": [{
-    "allowedVersions": "<3",
-    "matchPackageNames": [
-      "python"
-    ]
-  }, {
-    "allowedVersions": "/2\\.\\d+\\.\\d+-buster/",
+    "allowedVersions": "/2\\.\\d+\\.\\d+-bullseye/",
     "matchPackageNames": [
       "python"
     ]
