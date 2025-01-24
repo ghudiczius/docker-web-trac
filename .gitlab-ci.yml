@@ -2,8 +2,8 @@
 variables:
   DOCKER_HUB_IMAGE: "${DOCKER_HUB_USERNAME}/${CI_PROJECT_NAME}"
   # renovate: datasource=docker depName=python
-  PYTHON_VERSION: "3.13.1-bullseye"
-  # renovate: release=bullseye depName=trac
+  PYTHON_VERSION: "3.13.1-bookworm"
+  # renovate: release=bookworm depName=trac
   TRAC_VERSION: "1.4.3"
 
 workflow:
