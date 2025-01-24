@@ -1,5 +1,5 @@
 Genshi==0.7.9
-psycopg2==2.8.6
+psycopg2==2.9.10
 PyMySQL==1.1.1
 Trac==1.6
 TracAccountManager==0.6.0
