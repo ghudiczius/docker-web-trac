@@ -4,7 +4,7 @@
   "customManagers": [{
     "customType": "regex",
     "datasourceTemplate": "docker",
-    "depNameTemplate": "perl",
+    "depNameTemplate": "python",
     "fileMatch": [
       "^.gitlab-ci\\.ya?ml$"
     ],
