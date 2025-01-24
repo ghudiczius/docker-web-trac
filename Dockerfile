@@ -1,4 +1,4 @@
-FROM python:2.7.18-bullseye
+FROM python:3.12.8-bullseye
 
 ADD ["requirements.txt", "/data/requirements.txt"]
 
