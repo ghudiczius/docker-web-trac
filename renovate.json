@@ -10,8 +10,17 @@
     ],
     "matchStrings": [
       "PYTHON_VERSION: \"(?<currentValue>.*)\""
+    ]
+  }, {
+    "customType": "regex",
+    "datasourceTemplate": "pypi",
+    "depNameTemplate": "trac",
+    "fileMatch": [
+      "^.gitlab-ci\\.ya?ml$"
     ],
-    "versioningTemplate": "docker"
+    "matchStrings": [
+      "TRAC_VERSION: \"(?<currentValue>.*)\""
+    ]
   }],
   "packageRules": [{
     "allowedVersions": "/\\d+\\.\\d+\\.\\d+-bookworm/",
