@@ -1,4 +1,4 @@
-FROM python:3.13.4-bookworm
+FROM python:3.13.5-bookworm
 
 ADD ["requirements.txt", "/data/requirements.txt"]
 

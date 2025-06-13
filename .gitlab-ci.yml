@@ -1,7 +1,7 @@
 ---
 variables:
   DOCKER_HUB_IMAGE: "${DOCKER_HUB_USERNAME}/${CI_PROJECT_NAME}"
-  PYTHON_VERSION: "3.13.4-bookworm"
+  PYTHON_VERSION: "3.13.5-bookworm"
   TRAC_VERSION: "1.6"
 
 workflow:
